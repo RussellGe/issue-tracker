@@ -2,6 +2,7 @@ import React from "react";
 import { prisma } from "@/prisma/client";
 import { notFound } from "next/navigation";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 interface IssueDetailPageProps {
   params: {
@@ -20,11 +21,14 @@ const IssueDetailPage = async ({ params: { id } }: IssueDetailPageProps) => {
   }
   return (
     <div>
-      <p>{issue.title}</p>
-      <p>{issue.description}</p>
-      <IssueStatusBadge status={issue.status} />
-      <p>{issue.createdAt.toDateString()}</p>
-      <p>{issue.updatedAt.toDateString()}</p>
+      <Heading>{issue.title}</Heading>
+      <Flex gap="3" my="2">
+        <IssueStatusBadge status={issue.status} />
+        <Text>{issue.createdAt.toDateString()}</Text>
+      </Flex>
+      <Card>
+        <Text>{issue.description}</Text>
+      </Card>
     </div>
   );
 };
